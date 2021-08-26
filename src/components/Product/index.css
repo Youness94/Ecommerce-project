@@ -1,0 +1,12 @@
+.product__card{
+      margin-top: 15px;
+      margin-bottom: 15px;
+      display: flex;
+}
+.card_title_price_product{
+      display: flex !important;
+      justify-content: space-between;
+      margin-left: 15px ;
+      margin-right: 15px;
+      
+}
