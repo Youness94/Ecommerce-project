@@ -1,16 +1,13 @@
 import React from "react";
-import AddCarousel from "../../components/AddCarousel";
-import laptop from "../../img/laptop.jpg";
-import shoes from "../../img/shoes.jpg";
-import couch from "../../img/couch.jpg";
+import Slider from '../../components/Slider'
+
 
 
 
 const Home = () => {
   return (
     <div>
-      <AddCarousel/>
-     
+      <Slider/>
     </div>
   );
 };

@@ -1,0 +1,12 @@
+.login{
+      width: 60%;
+      margin: 10px auto 0px auto;
+          
+}
+.login__logo{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px;
+}
