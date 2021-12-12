@@ -4,12 +4,13 @@ import axios from 'axios'
 import swal from 'sweetalert'
 
 const ViewCategory = () => {
+      const backendUrl = process.env.ECOMMERCE_APP_BACKEND_URL;
 
       const [loading, setLoading] = useState(true);
       const [categoryList, setCategoryList] = useState([]);
 
       useEffect(()=> {
-            axios.get(`/api/view-category`).then(res => {
+            axios.get(`${backendUrl}/view-category`).then(res => {
                   if(res.status === 200)
                   {
                         setCategoryList(res.data.category)
@@ -23,7 +24,7 @@ const ViewCategory = () => {
             const thisClicked = e.currentTarget;
 
             thisClicked.innerText ="Deleting";
-            axios.delete(`/api/delete-category/${id}`).then(res => {
+            axios.delete(`${backendUrl}/delete-category/${id}`).then(res => {
                   if(res.data.status === 200)
                   {
                         swal("Success", res.data.message, "success");
@@ -84,7 +85,7 @@ const ViewCategory = () => {
                               </tr>
                         </thead>
                         <tbody>
-
+                              {viewcategory_HTMLTABLE}
                         </tbody>
                   </table>
             </div>

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const backendUrl = process.env.ECOMMERCE_APP_BACKEND_URL;
 
+
 export const addUser = async (data) => {
 
       await axios.post(`${backendUrl}/register`, data);

@@ -9,7 +9,7 @@ const ViewProduct = () => {
 
       useEffect(()=> {
             document.title ='View Products'
-            // axios.get(`/api/view-product`).then(res=>{
+            // axios.get(`/view-product`).then(res=>{
             //       if(res.data.status===200){
 
             //             setProduct(res.data.products)
