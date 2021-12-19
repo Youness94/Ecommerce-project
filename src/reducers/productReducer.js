@@ -3,9 +3,9 @@ import {ADD_PRODUCT, ADD_PRODUCTS, DELETE_PRODUCT, UPDATE_PRODUCT, GET_PRODUCT, 
 
 
 const initialState = {
+
       products :[],
-      
-  };
+};
 
 const productReducer = (state =initialState, action)=>{
       switch(action.type){
@@ -25,17 +25,17 @@ const productReducer = (state =initialState, action)=>{
 
             case GET_PRODUCT:
                   return{
-                        ...state,
+                  ...state,
                   products:action.payload,
                   }
                   break;
 
-                  case UPDATE_PRODUCT:
-                        return{
-                              ...state,
-                        products:state.map(product=>product.id==action.payload.id? product=product.payload:''),
-                        }
-                        break;
+            case UPDATE_PRODUCT:
+                  return{
+                  ...state,
+                  products:state.map(product=>product.id==action.payload.id? product=product.payload:''),
+                  }
+                  break;
 
                   
             

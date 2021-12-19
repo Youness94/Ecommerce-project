@@ -2,9 +2,12 @@ import React,{useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert'
+import { useSelector } from 'react-redux'
 
 const ViewCategory = () => {
       const backendUrl = process.env.ECOMMERCE_APP_BACKEND_URL;
+
+      // const categories = useSelector((state) => );
 
       const [loading, setLoading] = useState(true);
       const [categoryList, setCategoryList] = useState([]);
