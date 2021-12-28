@@ -8,7 +8,7 @@ import Sidebar from './Sidebar'
 import Footer from './Footer'
 
 import routes from '../../routes/routes.js'
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 
 const MasterLayout = () => {
       return (
@@ -37,6 +37,7 @@ const MasterLayout = () => {
                                                       )
                                                 )
                                           })}
+                                          
                                           <Redirect from="/admin" to="/admin/dashboard" />
                                     </Switch>
                               </main>

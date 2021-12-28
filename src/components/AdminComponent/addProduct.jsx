@@ -1,61 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddProduct = () => {
-  const backendUrl = process.env.ECOMMERCE_APP_BACKEND_URL;
+      const dispatch = useDispatch();
+      const history = useHistory();
+  
 
-  const dispatch = useDispatch();
+  
+    const [categorylist, setCategorylist] = useState([]);
+    const [productInput, setProduct] = useState({
+      category_id:'',
+      title:'',
+      price:'',
+      description:'',
+  });
 
-  // stats -----------------
-  const [price, setPrice] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+const [imageInput, setImage] =useState([]);
+const [errorlist, setError] =useState([]);
 
-  // function --------------
-  const handleChange = (a) => {
-    switch (a.target.id) {
-      case "title":
-        setTitle(a.target.value);
-        break;
-      case "price":
-        setPrice(a.target.value);
-        break;
-      case "description":
-        setDescription(a.target.value);
-        break;
-      case "image":
-        setImage(a.target.file[0]);
-        break;
-      default:
-        break;
-    }
-  };
-  const handleClick = async (e) => {
+useEffect(()=> {
+  axios.get(`/api/all-category`).then(res => {
+        if(res.status === 200)
+        {
+         setCategorylist(res.data.category);
+        }
+        
+  });
+}, []);
+
+const handleChange =(e)=> {
+   e.persist();
+   setProduct({...productInput, [e.target.name]: e.target.value});
+}
+const handleImage =(e)=> {
+ 
+  setImage({image : e.target.files[0]});
+}
+
+
+const handleProduct = (e) => {
       e.preventDefault();
-      if (title && description && image && price) {
-      let fd = new FormData();
-        fd.append("image", image);
-        fd.append("description", description);
-        fd.append("title", title);
-        fd.append("price", price);
-        fd.append("category_id");
+      const formData = new FormData();
+      
+      formData.append('image', imageInput.image);
+      formData.append('category_id', productInput.category_id);
+      formData.append('title', productInput.title);
+      formData.append('price', productInput.price);
+      formData.append('description', productInput.description);
 
-        await axios.post(`${backendUrl}/store-product`, fd).then((res) =>{
+      axios.post(`/api/store-product`, formData).then( res => {
+        if(res.data.status === 200){
 
-        });
-        setDescription("");
-        setTitle("");
-        setImage("");
-        setPrice("");
+          swal("Success",res.data.message,"success");
+          // setProduct({...productInput,
+          //   category_id:'',
+          //   title:'',
+          //   price:'',
+          //   description:'',
+
+          // })
+          setError([]);
+          
+        }
+        else if(res.data.status === 422){
+          swal("All Fields are mandetory","","error");
+          setError(res.data.errors);
+        }
+      });
        
-      };
-  };
 
+
+      
+    };
   return (
     <div className="container-fluid px-4">
       <div className="card mt-4">
@@ -70,12 +90,22 @@ const AddProduct = () => {
             </Link>
           </h4>
         </div>
+        <form onSubmit={handleProduct}>
         <div className="card-body">
           <div className="form-group mb-3">
             <label>Select Category</label>
-            <select name="category_id" className="form-control">
+            <select name="category_id" value={productInput.category_id} className="form-control" onChange={handleChange} >
               <option>Select Category</option>
+              {
+                categorylist.map((item) => {
+                  return(
+                    <option value={item.id} key={item.id}>{item.name}</option>
+                  )
+                })
+              }
+              
             </select>
+            <small className="text-danger">{errorlist.category_id}</small>
           </div>
 
           <div className="form-group mb-3">
@@ -83,11 +113,14 @@ const AddProduct = () => {
             <input
               type="text"
               name="title"
-              value={title}
+              value={productInput.title}
+              onChange={handleChange}
+              
               id="title"
               className="form-control"
-              onChange={handleChange}
+
             />
+            <small className="text-danger">{errorlist.title}</small>
           </div>
 
           <div className="form-group mb-3">
@@ -95,11 +128,14 @@ const AddProduct = () => {
             <input
               type="number"
               name="price"
-              value={price}
+              value={productInput.price}
+              onChange={handleChange}
+              
               id="price"
               className="form-control"
-              onChange={handleChange}
+              
             />
+            <small className="text-danger">{errorlist.price}</small>
           </div>
 
           <div className="form-group mb-3">
@@ -107,11 +143,14 @@ const AddProduct = () => {
             <input
               type="text"
               name="description"
-              value={description}
+               value={productInput.description}
+              onChange={handleChange}
+             
               id="description"
               className="form-control"
-              onChange={handleChange}
+              
             />
+            <small className="text-danger">{errorlist.description}</small>
           </div>
 
           <div className="form-group mb-3">
@@ -119,18 +158,20 @@ const AddProduct = () => {
             <input
               type="file"
               name="image"
-              value={image}
+              onChange={handleImage}
               id="image"
               className="form-control"
-              onChange={handleChange}
+              
             />
+            <small className="text-danger">{errorlist.image}</small>
           </div>
           <div className="form-group mb-3">
-            <Button variant="contained" color="primary" onClick={handleClick}>
-              ADD To Product
-            </Button>
-          </div>
+          </div> 
         </div>
+        <button type='submit' className="btn btn-primary px-4 float-end" >
+            ADD Product
+          </button>
+        </form>
       </div>
     </div>
   );

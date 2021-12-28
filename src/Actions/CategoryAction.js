@@ -1,5 +1,6 @@
 import {ADD_CATEGORY, DELETE_CATEGORY, UPDATE_CATEGORY, GET_CATEGORY, LIST_CATEGORY} from './type'
 
+
 export const addCategory =(data)=>dispatch=>{
       dispatch({
           type:ADD_CATEGORY,
@@ -32,4 +33,13 @@ export const updateCategory =(data)=>dispatch=>{
     }
     )
 }
+ 
+
+// export const updateCategory =(data)=>dispatch=>{
+//     dispatch({
+//         type:UPDATE_CATEGORY,
+//         payload:data
+//     }
+//     )
+// }
 

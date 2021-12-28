@@ -1,9 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import './index.css'
-import {Link} from 'react-router-dom'
+
+
+import axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import swal from "sweetalert";
 
 const SignIn = (props) => {
+
+  const history = useHistory();
+  
+  const [signInput, setSign] = useState({
+    email:'',
+    password:'',
+     error_list:[],
+});
+
+const handleChange =(e)=> {
+   e.persist();
+   setSign({...signInput, [e.target.name]: e.target.value});
+}
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const data = {
+    email: signInput.email,
+    password: signInput.password,
+  };
+
+  axios.get('/sanctum/csrf-cookie').then(response =>{
+  axios.post(`/api/login`, data).then((res) => {
+     if(res.data.status === 200){
+                localStorage.setItem('auth_token', res.data.token);
+                localStorage.setItem('auth_name', res.data.username);
+            swal("Success", res.data.message, "success");
+            history.push('/');
+          }
+          else if(res.data.status === 401){
+            swal("Warning", res.data.message, "warning");
+          }
+          else{
+            setSign({...signInput, error_list: res.data.validation_errors});
+          }
+
+});
+});
+}
+  
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
@@ -13,21 +58,21 @@ const SignIn = (props) => {
               <h4>Login</h4>
             </div>
             <div className="card-body">
-              <Form>
+              <form onSubmit={handleSubmit}>
                 
                 <div className="form-group mb-3">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" name="email" onChange={props.handleChange} value={props.name} id="name" className="form-control"  />
+                  <Form.Control type="email" name="email" onChange={handleChange} value={signInput.email} id="email" className="form-control"  />
                 </div>
                 <div className="form-group mb-3">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" name="password" onChange={props.handleChange} value={props.password} id="password" className="from-control" />
+                  <Form.Control type="password" name="password" onChange={handleChange} value={signInput.password} id="password" className="from-control" />
                 </div>
               
                 <div className="form-group mb-3">
                   <button type="submit" className="btn btn-primary" >Login</button>
                 </div>
-              </Form>
+              </form>
             </div> 
           </div>
         </div>

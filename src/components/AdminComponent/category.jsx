@@ -1,75 +1,77 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import swal from "sweetalert";
+
+import {addCategory} from '../../Actions/CategoryAction.js'
+import {useSelector, useDispatch} from "react-redux";
+
 
 const Category = () => {
 
-      const backendUrl = process.env.REACT_APP_BACKEND_URL;
+      
 
-  // slug:'',
-  // name:'',
-  // description:'',
-  // status:'',
-  // meta_title:'',
-  // meta_keyword:'',
-  // meta_description:'',
-  // error_list:[],
+      const dispatch = useDispatch();
+      const history = useHistory();
+      const categories = useSelector(store=>store.categoryReducer.categories);
 
-  const [slug, setSlug] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [error_list, setError_list] = useState([]);
-
-  const handleInput = (a) => {
-    switch (a.target.id) {
-      case "slug":
-        setSlug(a.target.value);
-        break;
-      case "name":
-            setName(a.target.value);
-        break;
-      case "description":
-        setDescription(a.target.value);
-        break;
+      
+  
+      const [categoryInput, setCategory] = useState({
+        slug:'',
+        name:'',
+        description:'',
+        error_list:[],
+    });
+    
+    const handleChange =(e)=> {
+       e.persist();
+       setCategory({...categoryInput, [e.target.name]: e.target.value});
     }
-  };
+  
 
-  const handleCategory = async (e) => {
+  const handleCategory =  (e) => {
     e.preventDefault();
-    if(slug && name && description){
-          let cd = new FormData();
-          cd.append("slug", slug);
-          cd.append("name", name);
-          cd.append("description", description);
+    const categoryData = {
+      slug : categoryInput.slug,
+      name : categoryInput.name,
+      description : categoryInput.description, 
+      
+    };
 
-          // const data ={ name:"testt", slug:"bla bla", description:"dhdgdgd"}
-
-          await axios.post(`${backendUrl}/store-category`, cd).then((res) => {
-            if (res.data.status === 200) {
-                  
+          axios.post(`/api/store-category`, categoryData).then( res => {
+            if(res.data.status === 200){
               swal("Success", res.data.message, "success");
-             
-                  setSlug("");
-                  setName("");
-                  setDescription("");
-                  
-            } else if (res.data.status === 400) {
-            //   setError_list({ ...categoryInput, error_list: res.data.errors });
+              setCategory({...categoryInput,
+                slug:'',
+                name:'',
+                description:'',
+    
+              })
+              document.getElementById('CATEGORY_FORM').reset();
+            }
+            else if(res.data.status === 400){
+              setCategory({...categoryInput, error_list :res.data.errors});
             }
           });
+           
+
+
+          
         };
 
-    }
+    
 
     
 
   var display_errors = [];
-  if (error_list) {
+  if (categoryInput.error_list) {
     display_errors = [
-      error_list.slug,
-      error_list.name,
-      // error_list.meta_title,
+      categoryInput.error_list.slug,
+      categoryInput.error_list.name,
+      // categoryInput.error_list.meta_title,
+     
+      
     ];
   }
 
@@ -97,7 +99,7 @@ const Category = () => {
       </div>
 
       <div className="card-body">
-        <form>
+        <form onSubmit={handleCategory} id="CATEGORY_FORM">
           <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item" role="presentation">
               <button
@@ -141,11 +143,11 @@ const Category = () => {
                   id="slug"
                   type="text"
                   name="slug"
-                  onChange={handleInput}
-                  value={slug}
+                  onChange={handleChange}
+                  value={categoryInput.slug}
                   className="form-control"
                 />
-                <span>{error_list.slug}</span>
+                <span>{categoryInput.error_list.slug}</span>
               </div>
               <div className="form-group mb-3">
                 <label>Name</label>
@@ -153,19 +155,19 @@ const Category = () => {
                   id="name"
                   type="text"
                   name="name"
-                  onChange={handleInput}
-                  value={name}
+                  onChange={handleChange}
+                  value={categoryInput.name}
                   className="form-control"
                 />
-                <span>{error_list.name}</span>
+                <span>{categoryInput.error_list.name}</span>
               </div>
               <div className="form-group mb-3">
                 <label>Description</label>
                 <textarea
                   id="description"
                   name="description"
-                  onChange={handleInput}
-                  value={description}
+                  onChange={handleChange}
+                  value={categoryInput.description}
                   className="form-control"
                 ></textarea>
               </div>
@@ -174,7 +176,7 @@ const Category = () => {
                 <input
                   type="checkbox"
                   name="status"
-                  onChange={handleInput}
+                  onChange={handleChange}
                   value={categoryInput.status}
                 />{" "}
                 Status 0=shown/1=hidden
@@ -183,21 +185,23 @@ const Category = () => {
             {/* <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">
                               <div className="form-group mb-3">
                                     <label >Meta Title</label>
-                                    <input type="text" name="meta_title" onChange={handleInput} value={categoryInput.meta_title} className="form-control" />
+                                    <input type="text" name="meta_title" onChange={handleChange} value={categoryInput.meta_title} className="form-control" />
                               </div>
                               <div className="form-group mb-3">
                                     <label >Meta keywords</label>
-                                    <textarea  name="meta_keyword" onChange={handleInput} value={categoryInput.meta_keyword} className="form-control"></textarea>
+                                    <textarea  name="meta_keyword" onChange={handleChange} value={categoryInput.meta_keyword} className="form-control"></textarea>
                               </div>
                               <div className="form-group mb-3">
                                     <label >Meta Description</label>
-                                    <textarea  name="meta_description" onChange={handleInput} value={categoryInput.meta_description} className="form-control"></textarea>
+                                    <textarea  name="meta_description" onChange={handleChange} value={categoryInput.meta_description} className="form-control"></textarea>
                               </div>
-                        </div> */}
+                  </div> */}
           </div>
-          <button className="btn btn-primary px-4 float-end" onClick={handleCategory}>
+          <div>
+          <button type='submit' className="btn btn-primary px-4 float-end" >
             ADD Category
           </button>
+          </div>
         </form>
       </div>
     </div>

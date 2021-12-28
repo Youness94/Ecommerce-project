@@ -3,34 +3,42 @@ import Product from "../../components/Product";
 import "./index.css";
 import {Container} from 'react-bootstrap'
 import {useSelector, useDispatch} from "react-redux";
-import imageA from '../../img/imageA.jpg'
-import imageB from '../../img/imageB.jpg'
-import imageC from '../../img/imageC.jpg'
-import imageD from '../../img/imageD.jpg'
-import imageE from '../../img/imageE.jpg'
-import imageF from '../../img/imageF.jpg'
-import imageG from '../../img/imageG.jpg'
-import imageH from '../../img/imageH.jpg'
-import imageI from '../../img/imageI.jpg'
+
+import Header from '../../components/Header'
+import Announcement from "../../components/Announcement";
+
+
+import acier_2 from '../../img/acier_2.jpg'
+import acier_3 from '../../img/acier_3.jpg'
+import acier_4 from '../../img/acier_4.jpg'
+import acier_5 from '../../img/acier_5.jpg'
+import acier_6 from '../../img/acier_6.jpg'
+import acier_7 from '../../img/acier_7.jpg'
+// import acier_2 from '../../img/acier_2.jpg'
+// import acier_3 from '../../img/acier_3.jpg'
+// import acier_4 from '../../img/acier_4.jpg'
 
 
 const product = [
-  { id: 1, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageA},
-  { id: 2, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageB},
-  { id: 3, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageC},
-  { id: 4, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageD},
-  { id: 5, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageE},
-  { id: 6, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageF},
-  { id: 7, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageG},
-  { id: 8, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageH},
-  { id: 9, title: "Shoes", description: "blabla bla bla ", price: 25, image: imageI},
+  { id: 1, title: "Shoes", description: "", price: 45, image: acier_2},
+  { id: 2, title: "Shoes", description: "", price: 70, image: acier_6},
+  { id: 3, title: "Shoes", description: "", price: 95, image: acier_4},
+  { id: 4, title: "Shoes", description: "", price: 105, image: acier_3},
+  { id: 5, title: "Shoes", description: "", price: 25, image: acier_5},
+  { id: 6, title: "Shoes", description: "", price: 39, image: acier_7},
+  { id: 7, title: "Shoes", description: "", price: 25, image: acier_2},
+  { id: 8, title: "Shoes", description: " ", price: 25, image: acier_3},
+  { id: 9, title: "Shoes", description: "", price: 25, image: acier_4},
 ];
 
 const Products = () => {
   // const product = useSelector(store=>store.productReducer.products);
 
   return (
-    <Container>
+    <div>
+       <Announcement/>
+      <Header/>
+      <Container>
       {/* <div className="product_category" style={{textAlign:"center"}}>
         <h2><span>All</span></h2>
       </div> */}
@@ -47,6 +55,7 @@ const Products = () => {
       ))}
     </div>
     </Container>
+    </div>
   );
 };
 

@@ -2,10 +2,13 @@ import React from "react";
 import SignIn from "../../components/SignIn";
 import "./index.css";
 import {Link} from 'react-router-dom'
+import Header from '../../components/Header'
 
 const Login = () => {
   return (
-    <div className="login">
+    <div>
+      <Header/>
+      <div className="login">
       {/*  */}
       <div className="login__logo">
         {/* <Link to="/">
@@ -14,8 +17,10 @@ const Login = () => {
       </div>
 
       <div className="login__component">
+        
         <SignIn />
       </div>
+    </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "react-use-cart";
+import Header from '../../components/Header'
 
 const Carts = () => {
   const {
@@ -19,7 +20,9 @@ const Carts = () => {
       </div>
     );
   return (
-    <section className="py-4 container">
+    <div>
+      <Header />
+      <section className="py-4 container">
       <div className="row justify-content-center">
         <div className="col-12">
           <h4>
@@ -70,6 +73,7 @@ const Carts = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

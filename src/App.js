@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Carts from "./pages/Catrs";
 import Products from "./pages/Products";
 import { CartProvider } from "react-use-cart";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link , Redirect} from "react-router-dom";
 
 
 import AdminPrivateRoute from "./routes/AdminPrivateRoute";
@@ -13,42 +13,67 @@ import Contact from "./pages/Contact";
 import Announcement from "./components/Announcement";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Categories from "./pages/Categories";
+
+import SignIn from './components/SignIn'
+import CreateAccount from './components/CreateAccount'
+
 import NewsLatter from "./components/NewsLatter";
 import MasterLayout from "./layouts/Admin/MasterLayout";
-import ClientRoute from "./ClientRoute";
+
+
 
 import axios from 'axios';
 
 
+axios.defaults.baseURL ='http://localhost:8000/'
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-type'] = 'application/jason';
 axios.defaults.headers.post['Accept'] = 'application/jason';
 
 function App() {
   return (
-    <Router>
+   
       <div className="App">
+         <Router>
         <CartProvider>
           <Switch>
 
-            {/* dashboard admin route */}
-          <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props} /> } />
-          {/* <AdminPrivateRoute path="/admin" name="Admin" /> */}
-
-          {/* <ClientRoute path="/" name="Home" /> */}
-
+          <Route path="/login">
+            {localStorage.getItem('auth_token')? <Redirect to='/'/> : <SignIn/>}
+          </Route>
           <Route path="/register">
-            <Header />
-              <Register />
-            </Route>
+            {localStorage.getItem('auth_token')? <Redirect to='/'/> : <CreateAccount/>}
+          </Route>
 
-            <Route path="/login">
+           
+           <Route path="/products" component={Products} />
+           <Route path="/checkout" component={Carts} />
+           <Route path="/about" component={About} />
+           <Route path="/contact" component={Contact} />
+           <Route exact path="/" component={Home}/>
+
+           <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props} /> } />
+
+          </Switch>
+        </CartProvider>
+        </Router>
+      </div>
+    
+  );
+}
+
+export default App;
+
+
+{/* <Header />
+              <Register />
+            </Route> */}
+            {/* <Route path="/login">
             <Header />
               <Login />
-            </Route>
+            </Route> */}
           
-            <Route path="/products" >
+            {/* <Route path="/products" >
               <Announcement />
               <Header />
               <Products />
@@ -61,27 +86,18 @@ function App() {
             </Route>
 
             <Route path="/about">
-            <Header />
+            
               <About/>
             </Route>
             <Route path="/contact">
             <Header />
               <Contact/>
-            </Route>
+            </Route> */}
 
-            <Route path="/">
-              <Announcement />
+            
+              {/* <Announcement />
               <Header />
               <Home />
               <Categories />
               <NewsLatter />
-            </Route>
-
-          </Switch>
-        </CartProvider>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
+            </Route> */}

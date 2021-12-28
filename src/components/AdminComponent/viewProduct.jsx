@@ -9,34 +9,34 @@ const ViewProduct = () => {
 
       useEffect(()=> {
             document.title ='View Products'
-            axios.get(`/view-product`).then(res=>{
-                  if(res.data.status===200){
+            // axios.get(`/view-product`).then(res=>{
+            //       if(res.data.status===200){
 
-                        setProduct(res.data.products)
-                  }
-            })
+            //             setProduct(res.data.products)
+            //       }
+            // })
       }, []);
       
-      var display_productData = "";
-      if(loading){
-            return <h4>View Products Loading...</h4>
-      }
-      else{
-            display_productData= viewProduct.map( (item)=> {
-                  return(
-                        <tr key={item.id}>
-                              <td>{item.id}</td>
-                              <td>{item.category.name}</td>
-                              <td>{item.title}</td>
-                              <td>{item.price}</td>
-                           <td><img src={`http:localhost:8000/${item.image}`} width="50px" alt="Image"/></td>
-                              <td><Link to={`edit-product/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
-                              <td><button type="button" className="btn btn-danger btn-sm">Delete</button></td>
+      // var display_productData = "";
+      // if(loading){
+      //       return <h4>View Products Loading...</h4>
+      // }
+      // else{
+      //       display_productData= viewProduct.map( (item)=> {
+      //             return(
+      //                   <tr key={item.id}>
+      //                         <td>{item.id}</td>
+      //                         <td>{item.category.name}</td>
+      //                         <td>{item.title}</td>
+      //                         <td>{item.price}</td>
+        //                    <td><img src={`http:localhost:8000/${item.image}`} width="50px" alt="Image"/></td>
+      //                         <td><Link to={`edit-product/${item.id}`} className="btn btn-success btn-sm">Edit</Link></td>
+      //                         <td><button type="button" className="btn btn-danger btn-sm">Delete</button></td>
 
-                        </tr>
-                  )
-            });
-      }
+      //                   </tr>
+      //             )
+      //       });
+      // }
       return (
             <div className="card px-4 mt-3">
                  <div className="card-header">

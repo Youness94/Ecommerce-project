@@ -14,7 +14,7 @@ const EditCategory = (props) => {
 
       useEffect(()=> {
 
-            const category_id = props.match.params.id
+            const category_id = props.match.params.id; 
             axios.get(`/api/edit-category/${category_id}`).then(res => {
                   if(res.data.status === 200)
                   {
@@ -46,7 +46,7 @@ const EditCategory = (props) => {
                   }
                   else if(res.data.status === 422)
                   {
-                        swal("All fields are mandtory", res.data.message, "success");
+                        swal("All fields are mandtory","", "success");
                         setError(res.data.errors);
                   }
                   else if(res.data.status === 404)
