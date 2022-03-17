@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import { LineStyle, Timeline, TrendingUp,Person,Storefront,AttachMoney,} from "@material-ui/icons";
 
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 
 const Sidebar = () => {
   return (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 
 const AddProduct = () => {
       const dispatch = useDispatch();
-      const history = useHistory();
+      const navigate = useNavigate();
   
 
   

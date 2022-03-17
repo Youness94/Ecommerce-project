@@ -1,11 +1,11 @@
 import React,{useState, useEffect} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert'
 
 const EditCategory = (props) => {
 
-      const history =useHistory();
+      const navigate =useNavigate();
       const [categoryInput, setCategory] = useState([]);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState([]);
@@ -22,11 +22,11 @@ const EditCategory = (props) => {
                   }
                   else{
                         swal("Error",res.data.message,"error");
-                        history.push('/admin/view-category');
+                        navigate.push('/admin/view-category');
                   }
                   setLoading(false);
             });
-      }, [props.match.params.id, history]);
+      }, [props.match.params.id, navigate]);
 
       const handleInput = (e)=> {
             e.persist();
@@ -52,7 +52,7 @@ const EditCategory = (props) => {
                   else if(res.data.status === 404)
                   {
                         swal("Error", res.data.message, "error");
-                        history.push('/admin/view-category');
+                        navigate.push('/admin/view-category');
                   }
 
             });
@@ -123,7 +123,7 @@ const EditCategory = (props) => {
                         </div>
                         
                   </div>
-                  <button type="submit" className="btn btn-primary px-4 float-end">Update</button>
+                  <button  className="btn btn-primary px-4 float-end">Update</button>
             </form>
                   </div>
             </div>

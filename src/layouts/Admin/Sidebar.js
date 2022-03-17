@@ -1,8 +1,9 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Outlet} from 'react-router-dom'
 
 const Sidebar = () => {
       return (
+          <div>
             <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div className="sb-sidenav-menu">
                         <div className="nav">
@@ -97,6 +98,10 @@ const Sidebar = () => {
                         Start Bootstrap
                     </div>
                 </nav>
+                <Outlet/>
+                </div>
+                
+
       )
 }
 
