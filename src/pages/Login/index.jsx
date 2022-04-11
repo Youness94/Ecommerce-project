@@ -7,7 +7,7 @@ import Header from '../../components/Header'
 const Login = () => {
   return (
     <div>
-      <Header/>
+    
       <div className="login">
       {/*  */}
       <div className="login__logo">

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const Category = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+ 
 
   const [categoryInput, setCategory] = useState({
     slug: "",

@@ -4,7 +4,7 @@ import Sidebar from '../../layouts/Admin/Sidebar'
 const Admin = () => {
       return (
             <div>
-                  <Sidebar/>
+                  {/* <Sidebar/> */}
                   
             </div>
       )

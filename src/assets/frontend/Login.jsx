@@ -4,13 +4,13 @@ import { Form } from "react-bootstrap";
 
 
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import swal from "sweetalert";
 
 const SignIn = (props) => {
 
-  const navigate = useNavigate();
+  
   
   const [signInput, setSign] = useState({
     email:'',
@@ -36,7 +36,7 @@ const handleSubmit = (e) => {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('auth_name', res.data.username);
             swal("Success", res.data.message, "success");
-            navigate.push('/');
+            // navigate.push('/');
           }
           else if(res.data.status === 401){
             swal("Warning", res.data.message, "warning");

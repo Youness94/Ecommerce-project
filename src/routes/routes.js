@@ -21,20 +21,6 @@ const routes = [
 ];
 
 
-export default routes
+export default routes;
 
 
-
-// export default routes
-
-
-
-
-// <Route path='/admin/dashboard' element={<Dashboard/>}/>
-// <Route path='/admin/profile' element={<Profile/>} />
-// <Route path='/admin/add-category' element={<Category/>} />
-// <Route path='/admin/view-category' element={<ViewCategory/>} />
-// <Route path='/admin/edit-category/:id' element={<EditCategory/>} />
-// <Route path='/admin/add-product' element={<AddProduct/>} />
-// <Route path='/admin/view-product' element={<ViewProduct/>} />
-// <Route path='/admin/edit-product/:id' element={<EditProduct/>} />

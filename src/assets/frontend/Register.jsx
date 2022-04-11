@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import swal from "sweetalert";
 import { Form } from "react-bootstrap";
@@ -9,7 +9,7 @@ import { Form } from "react-bootstrap";
 
 const CreateAccount = (props) => {
 
-      const navigate = useNavigate();
+      
       const [registerInput, setRegister] = useState({
             name:'',
             email:'',
@@ -36,7 +36,7 @@ const CreateAccount = (props) => {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('auth_name', res.data.username);
             swal("Success", res.data.message, "success");
-            navigate.push('/');
+            // navigate.push('/');
           }
           else{
             setRegister({...registerInput, error_list: res.data.validation_errors});

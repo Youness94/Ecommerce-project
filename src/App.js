@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Carts from "./pages/Catrs";
 import Products from "./pages/Products";
 import { CartProvider } from "react-use-cart";
-import { BrowserRouter as Router,  Routes,Route , Navigate} from "react-router-dom";
+import { BrowserRouter as Router,  Route , Switch} from "react-router-dom";
 
 
 import AdminPrivateRoute from "./routes/AdminPrivateRoute";
@@ -19,18 +19,11 @@ import Login from "./assets/frontend/Login";
 import NewsLatter from "./components/NewsLatter";
 import MasterLayout from "./layouts/Admin/MasterLayout";
 
-import AddProduct from './components/AdminComponent/addProduct';
-import Category from './components/AdminComponent/category';
-import Dashboard from "./components/AdminComponent/dashboard";
-import EditCategory from './components/AdminComponent/editCategory';
-import EditProduct from './components/AdminComponent/editProduct';
-import Profile from './components/AdminComponent/profile';
-import ViewCategory from './components/AdminComponent/viewCategory';
-import ViewProduct from './components/AdminComponent/viewProduct';
+
 
 import axios from 'axios';
 
-import AdminView from "./layouts/Admin/AdminView";
+
 
 import './assets/admin/css/styles.css'
 import './assets/admin/js/scripts.js'
@@ -49,40 +42,40 @@ function App() {
         
         <CartProvider>
          <Router>
-              <Routes>
+           <Switch>
+           <Route path="/admin" name='Admin' render={(props) => <MasterLayout {...props} />} />
 
-              {/* <Route path="/login">
-                {localStorage.getItem('auth_token')? <Navigate to='/'/> : <Login/>}
-              </Route>
-              <Route path="/register">
-                {localStorage.getItem('auth_token')? <Navigate to='/'/> : <Register/>}
-              </Route> */}
+            <Route path="/about">
+            
+              <About/>
+            </Route>
 
-              {/* <Route path="/admin" element={<MasterLayout />} >
-                <Route path="/admin/dashbord" element={<Dashboard/>} /> */}
+            <Route path="/contact">
+              <Header />
+              <Contact/>
+            </Route> 
+            
+            <Route path="/checkout">
+              <Announcement />
+              <Header />
+              <Carts />
+            </Route>
 
-              {/* <Route path="/admin" element={<MasterLayout/>} >
-                  <Route path='/admin/dashboard' element={<Dashboard/>}/>
-                  <Route path='/admin/profile' element={<Profile/>} />
-                  <Route path='/admin/add-category' element={<Category/>} />
-                  <Route path='/admin/view-category' element={<ViewCategory/>} />
-                  <Route path='/admin/edit-category/:id' element={<EditCategory/>} />
-                  <Route path='/admin/add-product' element={<AddProduct/>} />
-                  <Route path='/admin/view-product' element={<ViewProduct/>} />
-                  <Route path='/admin/edit-product/:id' element={<EditProduct/>} />
-              </Route> */}
+            <Route path="/products" >
+              <Announcement />
+              <Header />
+              <Products />
+            </Route>
 
-              <Route path="/products" element={<Products/>} />
-              <Route path="/checkout" element={<Carts/>} />
-              <Route path="/about" element={<About/>} />
-              <Route path="/contact" element={<Contact/>} />
-              <Route exact path="/" element={<Home/>}/>
-              
-              
-             
-              
-              </Routes>
-            </Router>
+            <Route path="/">
+              <Announcement />
+              <Header />
+              <Home />
+              <NewsLatter />
+            </Route>
+           
+           </Switch>
+          </Router>
         </CartProvider>
        
       </div>
@@ -123,7 +116,8 @@ export default App;
             </Route> */}
 
             
-              {/* <Announcement />
+              {/*<Route path="/">
+              <Announcement />
               <Header />
               <Home />
               <Categories />

@@ -11,8 +11,7 @@ import Slider from '../../components/Slider'
 const Home = () => {
   return (
     <div>
-      <Announcement/>
-      <Header/>
+      
       <Slider/>
     </div>
   );

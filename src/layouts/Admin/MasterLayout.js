@@ -8,11 +8,7 @@ import Sidebar from './Sidebar'
 import Footer from './Footer'
 
 import routes from '../../routes/routes'
-import { Route, Navigate, Routes, Outlet } from "react-router-dom";
-
-
-
-
+import { Redirect,  Route , Switch } from "react-router-dom";
 
 
 
@@ -27,8 +23,24 @@ const MasterLayout = () => {
 
                         <div id="layoutSidenav_content">
                               <main>
-                                    
-                                     
+                              <Switch>
+                              {routes.map((route, idx)=>{
+                                    return(
+                                          route.component && (
+                                                <Route
+                                                key={idx}
+                                                path={route.path}
+                                                exact={route.exact}
+                                                name={route.name}
+                                                render={(props)=>(
+                                                      <route.component {...props} />
+                                                )}
+                                                />
+                                          )
+                                    )
+                              })}
+                              <Redirect from='admin' to='/admin/dashboard' />
+                              </Switch>      
                               </main>
                               <Footer/>
                         </div>
@@ -38,25 +50,4 @@ const MasterLayout = () => {
 };
 
 export default MasterLayout;
-
-
-
-                                    //  <main>
-                                    // <Routes>
-                                    //       {routes.filter(route => route.component)
-                                    //       .map(({ name, exact, path, component: Component }, idx) => (
-                                    //       <Route
-                                    //             key={idx}
-                                    //             path={path}
-                                    //             name={name}
-                                    //             exact={exact}
-                                    //             element={<Component />}
-                                    //       />
-                                    //       ))}
-                                    //       <Route
-                                    //       path="/admin"
-                                    //       element={<Navigate to="/admin/dashboard"/>}
-                                    //       />
-                                    //       {/* <Redirect from="/admin" to="/admin/dashboard" /> */}
-                                    // </Routes> 
-                                    // </main>
+ 

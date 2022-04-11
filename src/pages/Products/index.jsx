@@ -36,8 +36,7 @@ const Products = () => {
 
   return (
     <div>
-       <Announcement/>
-      <Header/>
+      
       <Container>
       {/* <div className="product_category" style={{textAlign:"center"}}>
         <h2><span>All</span></h2>

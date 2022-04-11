@@ -21,7 +21,7 @@ const Carts = () => {
     );
   return (
     <div>
-      <Header />
+      
       <section className="py-4 container">
       <div className="row justify-content-center">
         <div className="col-12">
