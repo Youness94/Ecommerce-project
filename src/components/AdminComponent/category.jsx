@@ -12,6 +12,10 @@ const Category = () => {
     slug: "",
     name: "",
     description: "",
+    status:"",
+    meta_title:"",
+    meta_keyword:"",
+    meta_description:"",
     error_list: [],
   });
 
@@ -21,16 +25,23 @@ const Category = () => {
   };
   const handleCategory = (e) => {
     e.preventDefault();
-    const categoryData = {
+    const data = {
       slug: categoryInput.slug,
       name: categoryInput.name,
       description: categoryInput.description,
+      status:categoryInput.status,
+      meta_title:categoryInput.meta_title,
+      meta_keyword:categoryInput.meta_keyword,
+      meta_description:categoryInput.meta_description,
+
+
     };
-    axios.post(`/api/store-category`, categoryData).then((res) => {
+    axios.post(`/api/store-category`, data).then(res => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
         setCategory({ ...categoryInput, slug: "", name: "", description: "" });
         document.getElementById("CATEGORY_FORM").reset();
+
       } else if (res.data.status === 400) {
         setCategory({ ...categoryInput, error_list: res.data.errors });
       }
@@ -42,7 +53,7 @@ const Category = () => {
         <div className="jumbotron">
           {/* ---------------------- */}
           <div className="card-header">
-            <h1 className="mb-5 text-center">
+            <h4 className="mb-5 text-center">
               Add Category
               <Link
                 to="/admin/view-category"
@@ -50,7 +61,7 @@ const Category = () => {
               >
                 View Category
               </Link>
-            </h1>
+            </h4>
           </div>
           {/* ---------------------- */}
           <div className="card-body">
@@ -102,6 +113,7 @@ const Category = () => {
                       value={categoryInput.slug}
                       onChange={handleChange}
                     />
+                    <span>{categoryInput.error_list.slug}</span>
                   </div>
                   <div className="form-group col-md-10">
                     <label for="input">Name</label>
@@ -113,6 +125,7 @@ const Category = () => {
                       value={categoryInput.name}
                       onChange={handleChange}
                     />
+                    <span>{categoryInput.error_list.name}</span>
                   </div>
                   {/* <div className="form-group col-md-10">
                     <label for="input">Image</label>
@@ -136,7 +149,22 @@ const Category = () => {
                       onChange={handleChange}
                     ></textarea>
                   </div>
+
+                  <div className="form-group col-md-10">
+                    <label for="input">Satuts</label>
+                    <input
+                      id="name"
+                      type="checkbox"
+                      name="status"
+                      value={categoryInput.status}
+                      onChange={handleChange}
+                    /> Status 0=showm/1=hidden
+                    <span>{categoryInput.error_list.status}</span>
+                  </div>
                 </div>
+
+                {/* --------------- */}
+
                 <div
                   className="tab-pane card-body border fade"
                   id="seo-tags"
@@ -176,6 +204,7 @@ const Category = () => {
                       onChange={handleChange}
                     ></textarea>
                   </div>
+                  
                 </div>
               
               </div>
