@@ -48,12 +48,12 @@ const Category = () => {
     });
   };
   return (
-    <div className="container m-2">
-      <section className="myform form-group">
-        <div className="jumbotron">
+    <div className="content-wrapper">
+      <section className="content myform form-group">
+        <div className=" content jumbotron">
           {/* ---------------------- */}
-          <div className="card-header">
-            <h4 className="mb-5 text-center">
+          <div className="content card-header">
+            <h4 className="content mb-5 text-center">
               Add Category
               <Link
                 to="/admin/view-category"
@@ -64,7 +64,7 @@ const Category = () => {
             </h4>
           </div>
           {/* ---------------------- */}
-          <div className="card-body">
+          <div className="content card-body">
             <form onSubmit={handleCategory} id="CATEGORY_FORM">
               <ul className="nav nav-tabs" id="myTab" role="tablist">
                 <li className="nav-item" role="presentation">
@@ -178,7 +178,7 @@ const Category = () => {
                       type="text"
                       name="meta_title"
                       className="form-control"
-                      value={categoryInput.meta_title}
+                      value={categoryInput.meta_title} 
                       onChange={handleChange}
                     />
                   </div>
@@ -209,8 +209,8 @@ const Category = () => {
               
               </div>
               <button
-                  
-                  className="btn btn-primary px-6 float-end"
+                  type="submit"
+                  className="btn btn-primary px-6 mt-2 float-end"
                   
                 >
                   ADD Category

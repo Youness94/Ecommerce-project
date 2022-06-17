@@ -27,6 +27,7 @@ const ViewProduct = () => {
                         <tr key={item.id}>
                               <td>{item.id}</td>
                               <td>{item.category.name}</td>
+                              <td>{item.name}</td>
                               <td>{item.title}</td>
                               <td>{item.price}</td>
                            <td><img src={`http:localhost:8000/${item.image}`} width="50px" alt="Image"/></td>

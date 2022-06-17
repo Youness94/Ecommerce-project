@@ -6,13 +6,14 @@ import { CartProvider } from "react-use-cart";
 import { BrowserRouter as Router,  Route , Switch} from "react-router-dom";
 
 
+
 import AdminPrivateRoute from "./routes/AdminPrivateRoute";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Announcement from "./components/Announcement";
-import Register from "./assets/frontend/Register";
-import Login from "./assets/frontend/Login";
+// import Register from "./assets/frontend/Register";
+// import Login from "./assets/frontend/Login";
 
 
 
@@ -25,15 +26,17 @@ import axios from 'axios';
 
 
 
-import './assets/admin/css/styles.css'
-import './assets/admin/js/scripts.js'
+
+// import './assets/admin/css/styles.css'
+// import './assets/admin/js/scripts.js'
 
 
 
-axios.defaults.baseURL ='http://localhost:8000/'
-axios.defaults.withCredentials = true;
-axios.defaults.headers.post['Content-type'] = 'application/jason';
-axios.defaults.headers.post['Accept'] = 'application/jason';
+
+// axios.defaults.baseURL ='http://localhost:8000/'
+// axios.defaults.withCredentials = true;
+// axios.defaults.headers.post['Content-type'] = 'application/jason';
+// axios.defaults.headers.post['Accept'] = 'application/jason';
 
 function App() {
   return (
@@ -45,10 +48,13 @@ function App() {
            <Switch>
            <Route path="/admin" name='Admin' render={(props) => <MasterLayout {...props} />} />
 
+           
             <Route path="/about">
             
               <About/>
             </Route>
+
+             
 
             <Route path="/contact">
               <Header />
